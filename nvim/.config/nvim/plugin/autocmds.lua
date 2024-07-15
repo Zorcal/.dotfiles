@@ -3,6 +3,14 @@ local autocmd = vim.api.nvim_create_autocmd
 
 local zorcal_group = augroup("zorcal", {})
 
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    -- Make NeoVim transparent.
+    vim.cmd "hi! Normal guibg=NONE ctermbg=NONE"
+    vim.cmd "hi! NonText guibg=NONE ctermbg=NONE"
+  end,
+})
+
 autocmd("TextYankPost", {
   group = zorcal_group,
   pattern = "*",

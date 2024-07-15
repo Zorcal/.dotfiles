@@ -15,7 +15,7 @@ config.front_end = 'OpenGL'
 config.color_scheme = 'Ayu Dark (Gogh)'
 
 -- Transparency
-config.window_background_opacity = 1
+config.window_background_opacity = 0.8
 config.font_size = 12
 config.line_height = 1.0
 config.dpi = 96.0
