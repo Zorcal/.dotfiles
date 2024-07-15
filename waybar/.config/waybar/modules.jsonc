@@ -1,21 +1,22 @@
 {
-    // "hyprland/workspaces": {
-    //     "active-only": false,
-    //     "all-outputs": true,
-    //     "disable-scroll": false,
-    //     "on-scroll-up": "hyprctl dispatch workspace e-1",
-    //     "on-scroll-down": "hyprctl dispatch workspace e+1",
-    //     "format": "{icon}",
-    //     "format-icons": {
-    //         "urgent": "",
-    //         "active": "",
-    //         "default": "",
-    //         "sort-by-number": true
-    //     },
-    //     "persistent-workspaces": {
-    //         "*": 5
-    //     }
-    // },
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "warp-on-scroll": false,
+        "format": "{icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "urgent": "",
+            "focused": "",
+            "default": ""
+        }
+    },
     "pulseaudio": {
         "scroll-step": 1, // %, can be a float
         "format": "{icon}   {volume}%",

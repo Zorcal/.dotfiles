@@ -1,26 +1,60 @@
-{
-    "margin-top": 0,
-    "margin-bottom": 0,
-    "layer": "top",
-    "margin-left": 0,
-    "margin-right": 0,
-    "spacing": 0,
-    "include": [
-        "~/.config/waybar/modules.jsonc"
-    ],
-    "modules-left": [],
-    "modules-center": [],
-    "modules-right": [
-        "pulseaudio",
-        "custom/separator",
-        "battery",
-        "custom/separator",
-        "network",
-        "custom/separator",
-        "group/hardware",
-        "custom/separator",
-        "clock",
-        "custom/separator",
-        "custom/exit"
-    ]
-}
+[
+    {
+        "output": "eDP-1",
+        "margin-top": 0,
+        "margin-bottom": 0,
+        "layer": "top",
+        "margin-left": 0,
+        "margin-right": 0,
+        "spacing": 0,
+        "include": [
+            "~/.config/waybar/modules.jsonc"
+        ],
+        "modules-left": [
+            "hyprland/workspaces"
+        ],
+        "modules-center": [],
+        "modules-right": [
+            "pulseaudio",
+            "custom/separator",
+            "battery",
+            "custom/separator",
+            "network",
+            "custom/separator",
+            "group/hardware",
+            "custom/separator",
+            "clock",
+            "custom/separator",
+            "custom/exit"
+        ]
+    },
+    {
+        "output": "DP-4",
+        "margin-top": 0,
+        "margin-bottom": 0,
+        "layer": "top",
+        "margin-left": 0,
+        "margin-right": 0,
+        "spacing": 0,
+        "include": [
+            "~/.config/waybar/modules.jsonc"
+        ],
+        "modules-left": [
+            "hyprland/workspaces"
+        ],
+        "modules-center": [],
+        "modules-right": [
+            "pulseaudio",
+            "custom/separator",
+            "battery",
+            "custom/separator",
+            "network",
+            "custom/separator",
+            "group/hardware",
+            "custom/separator",
+            "clock",
+            "custom/separator",
+            "custom/exit"
+        ]
+    }
+]
