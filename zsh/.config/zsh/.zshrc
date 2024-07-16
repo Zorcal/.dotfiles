@@ -83,6 +83,8 @@ function zsh_add_plugin() {
     fi
 }
 
+alias emacs="emacsclient -c --alternate-editor=''"
+
 zsh_add_plugin "agkozak/zsh-z"
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
