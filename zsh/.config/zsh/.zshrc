@@ -65,6 +65,8 @@ bindkey -M visual '^[[P' vi-delete
 
 export _Z_CMD="j"
 export _Z_DATA=${XDG_DATA_HOME:-$HOME/.local/share}/z
+export ZSHZ_TILDE=1
+export ZSHZ_NO_RESOLVE_SYMLINKS=1
 
 function zsh_source_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
