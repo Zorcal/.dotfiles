@@ -79,4 +79,28 @@
 ;; See https://github.com/emacs-lsp/lsp-mode/issues/3577
 (after! lsp-mode
   ;; https://github.com/emacs-lsp/lsp-mode/issues/3577#issuecomment-1709232622
-  (delete 'lsp-terraform lsp-client-packages))
+  (delete 'lsp-terraform lsp-client-packages)
+  )
+
+;; automatically organize imports
+(add-hook 'go-mode-hook #'lsp-deferred)
+;; Make sure you don't have other goimports hooks enabled.
+(defun lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+
+;; enable all analyzers; not done by default
+(after! lsp-mode
+  (setq  lsp-go-analyses '((fieldalignment . t)
+                           (nilness . t)
+                           (shadow . t)
+                           (unusedparams . t)
+                           (unusedwrite . t)
+                           (useany . t)
+                           (unusedvariable . t)))
+  )
+
+(after! lsp-mode
+  (if (and (modulep! :lang go +lsp) (executable-find "gofumpt"))
+      (setq lsp-go-use-gofumpt t)
+    (message "gofumpt not installed")))
