@@ -52,7 +52,12 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export PATH="$PATH:/usr/bin"
 export PATH="$PATH:$XDG_CONFIG_HOME/emacs/bin"
 export PATH="$PATH:$XDG_DATA_HOME/go/bin"
-export PATH="$PATH:$XDG_DATA_HOME/zig/bin"
+# Download Zig version from https://ziglang.org/download/, move it to
+# XDG_DATA_HOME and symlink version to XDG_DATA_HOME/zig. For example:
+#   tar -xvf zig-linux-x86_64-0.13.0.tar.xz
+#   mv zig-linux-x86_64-0.13.0 $XDG_DATA_HOME/
+#   ln -s $XDG_DATA_HOME/zig-linux-x86_64-0.13.0 $XDG_DATA_HOME/zig
+export PATH="$PATH:$XDG_DATA_HOME/zig"
 export PATH="$PATH:$XDG_DATA_HOME/zls/bin"
 export PATH="$PATH:$XDG_DATA_HOME/bazelisk/bin"
 export PATH="$PATH:$XDG_DATA_HOME/cargo/bin"
