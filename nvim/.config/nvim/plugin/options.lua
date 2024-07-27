@@ -61,8 +61,8 @@ opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldtext = "v:lua.vim.treesitter.foldtext()"
 
 if vim.g.neovide then
-  vim.o.guifont = "JetBrains Mono:h12"
-  vim.opt.linespace = 0
+  -- vim.o.guifont = "JetBrains Mono:h12"
+  -- vim.opt.linespace = 0
   vim.g.neovide_scale_factor = 1.0
   vim.g.neovide_padding_top = 0
   vim.g.neovide_padding_bottom = 0
