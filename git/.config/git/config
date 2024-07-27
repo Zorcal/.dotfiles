@@ -60,3 +60,6 @@
     insteadOf = https://github.com/grpc-gateway/
 [rerere]
     enabled = true
+[user]
+	email = zorcal.dev@gmail.com
+	name = zorcal
