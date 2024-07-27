@@ -9,6 +9,9 @@ end
 -- Temporary fix for running wezterm on wayland...
 config.enable_wayland = false
 
+-- This should be default behaviour...
+config.enable_kitty_keyboard = true
+
 -- OpenGL for GPU acceleration, Software for CPU
 config.front_end = 'OpenGL'
 
