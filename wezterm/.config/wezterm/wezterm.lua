@@ -1,10 +1,29 @@
 local wezterm = require 'wezterm'
+local mux = wezterm.mux
 local act = wezterm.action
 
 local config = {}
+
 if wezterm.config_builder then
   config = wezterm.config_builder()
 end
+
+wezterm.on('update-right-status', function(window, _)
+  window:set_right_status(window:active_workspace())
+end)
+
+wezterm.on('gui-startup', function(cmd)
+  -- allow `wezterm start -- something` to affect what we spawn
+  -- in our initial window
+  local args = {}
+  if cmd then
+    args = cmd.args
+  end
+
+  mux.spawn_window { workspace = 'default', cwd = wezterm.home_dir, args = args }
+  mux.spawn_window { workspace = '.dotfiles', cwd = wezterm.home_dir .. '/.dotfiles', args = args }
+  mux.set_active_workspace 'default'
+end)
 
 -- Temporary fix for running wezterm on wayland...
 config.enable_wayland = false
@@ -51,7 +70,7 @@ config.disable_default_key_bindings = true
 config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.keys = {
   -- Leader fix: Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A.
-  { key = 'a', mods = 'LEADER|CTRL', action = act.SendString '\x01' },
+  { key = 'a', mods = 'LEADER|CTRL', action = act.SendString '\x02' },
   -- Move between panes.
   { key = 'h', mods = 'LEADER', action = act.ActivatePaneDirection 'Left' },
   { key = 'l', mods = 'LEADER', action = act.ActivatePaneDirection 'Right' },
@@ -93,12 +112,45 @@ config.keys = {
   { key = 'v', mods = 'SHIFT|CTRL', action = act.PasteFrom 'Clipboard' },
   -- Launcher.
   { key = 's', mods = 'LEADER|SHIFT', action = act.ShowLauncher },
-  -- Workspaces.
-  { key = 'n', mods = 'LEADER|SHIFT', action = act.SwitchWorkspaceRelative(1) },
-  { key = 'p', mods = 'LEADER|SHIFT', action = act.SwitchWorkspaceRelative(-1) },
   -- Search.
   { key = '/', mods = 'LEADER', action = act.Search 'CurrentSelectionOrEmptyString' },
   { key = ' ', mods = 'LEADER', action = wezterm.action.QuickSelect },
+  -- Workspaces.
+  { key = 'n', mods = 'LEADER|SHIFT', action = act.SwitchWorkspaceRelative(1) },
+  { key = 'p', mods = 'LEADER|SHIFT', action = act.SwitchWorkspaceRelative(-1) },
+  -- Show the launcher in fuzzy selection mode and have it list all workspaces
+  -- and allow activating one.
+  {
+    key = 'f',
+    mods = 'CTRL',
+    action = act.ShowLauncherArgs {
+      flags = 'FUZZY|WORKSPACES',
+    },
+  },
+  {
+    key = 'w',
+    mods = 'LEADER',
+    action = act.PromptInputLine {
+      description = wezterm.format {
+        { Attribute = { Intensity = 'Bold' } },
+        { Foreground = { AnsiColor = 'Fuchsia' } },
+        { Text = 'Enter name for new workspace' },
+      },
+      action = wezterm.action_callback(function(window, pane, line)
+        -- line will be `nil` if they hit escape without entering anything
+        -- An empty string if they just hit enter
+        -- Or the actual line of text they wrote
+        if line then
+          window:perform_action(
+            act.SwitchToWorkspace {
+              name = line,
+            },
+            pane
+          )
+        end
+      end),
+    },
+  },
 }
 config.key_tables = {
   search_mode = {
