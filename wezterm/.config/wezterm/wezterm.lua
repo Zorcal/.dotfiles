@@ -20,8 +20,15 @@ wezterm.on('gui-startup', function(cmd)
     args = cmd.args
   end
 
+  -- Pre-defined workspaces.
   mux.spawn_window { workspace = 'default', cwd = wezterm.home_dir, args = args }
-  mux.spawn_window { workspace = '.dotfiles', cwd = wezterm.home_dir .. '/.dotfiles', args = args }
+  mux.spawn_window { workspace = '~/.dotfiles', cwd = wezterm.home_dir .. '/.dotfiles', args = args }
+  mux.spawn_window { workspace = '~/Work/frontend', cwd = wezterm.home_dir .. '/Work/frontend', args = args }
+  mux.spawn_window { workspace = '~/Work/ingest', cwd = wezterm.home_dir .. '/Work/ingest', args = args }
+  mux.spawn_window { workspace = '~/Work/vpn', cwd = wezterm.home_dir .. '/Work/vpn', args = args }
+  mux.spawn_window { workspace = '~/Projects', cwd = wezterm.home_dir .. '/Projects', args = args }
+  mux.spawn_window { workspace = '~/Downloads', cwd = wezterm.home_dir .. '/Downloads', args = args }
+
   mux.set_active_workspace 'default'
 end)
 
@@ -120,13 +127,7 @@ config.keys = {
   { key = 'p', mods = 'LEADER|SHIFT', action = act.SwitchWorkspaceRelative(-1) },
   -- Show the launcher in fuzzy selection mode and have it list all workspaces
   -- and allow activating one.
-  {
-    key = 'f',
-    mods = 'CTRL',
-    action = act.ShowLauncherArgs {
-      flags = 'FUZZY|WORKSPACES',
-    },
-  },
+  { key = 'f', mods = 'CTRL', action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' } },
   {
     key = 'w',
     mods = 'LEADER',
@@ -137,16 +138,8 @@ config.keys = {
         { Text = 'Enter name for new workspace' },
       },
       action = wezterm.action_callback(function(window, pane, line)
-        -- line will be `nil` if they hit escape without entering anything
-        -- An empty string if they just hit enter
-        -- Or the actual line of text they wrote
         if line then
-          window:perform_action(
-            act.SwitchToWorkspace {
-              name = line,
-            },
-            pane
-          )
+          window:perform_action(act.SwitchToWorkspace { name = line }, pane)
         end
       end),
     },
