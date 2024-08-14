@@ -41,10 +41,14 @@ config.enable_kitty_keyboard = true
 -- OpenGL for GPU acceleration, Software for CPU
 config.front_end = 'OpenGL'
 
-config.color_scheme = 'Ayu Dark (Gogh)'
+local dark = true
+if dark then
+  config.color_scheme = 'Ayu Dark (Gogh)'
+  config.window_background_opacity = 0.8
+else
+  config.color_scheme = 'Github'
+end
 
--- Transparency
-config.window_background_opacity = 0.8
 config.font_size = 12
 config.line_height = 1.0
 config.dpi = 96.0
