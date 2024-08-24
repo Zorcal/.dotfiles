@@ -94,3 +94,5 @@ zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 [[ -f "$ZDOTDIR/.zshfuncs" ]] && . "$ZDOTDIR/.zshfuncs"
 
 [[ -f "$ZDOTDIR/.zshworkprofile" ]] && . "$ZDOTDIR/.zshworkprofile"
+
+source '/home/j/.local/share/pop/shell_init/zsh/init.zsh' # added by pop
