@@ -152,7 +152,17 @@ return {
       })
 
       -- Autoformatting setup
-      require("conform").setup {
+      local conform = require "conform"
+      local webdevFormatters = (function()
+        if conform.get_formatter_info("biome", 0).available then
+          return { "biome", "biome-check" }
+        elseif conform.get_formatter_info("eslint_d", 0).available then
+          return { "prettier", "eslint_d" }
+        else
+          return {}
+        end
+      end)()
+      conform.setup {
         formatters = {
           clickhousefmt = {
             command = "/usr/bin/clickhouse-format",
@@ -160,16 +170,16 @@ return {
           },
         },
         formatters_by_ft = {
-          javascript = { { "prettierd", "prettier" }, "eslint_d" },
-          typescript = { { "prettierd", "prettier" }, "eslint_d" },
-          javascriptreact = { { "prettierd", "prettier" }, "eslint_d" },
-          typescriptreact = { { "prettierd", "prettier" }, "eslint_d" },
-          css = { { "prettierd", "prettier" } },
-          html = { { "prettierd", "prettier" } },
-          json = { { "prettierd", "prettier" } },
-          yaml = { { "prettierd", "prettier" } },
-          markdown = { { "prettierd", "prettier" } },
-          graphql = { { "prettierd", "prettier" } },
+          javascript = webdevFormatters,
+          typescript = webdevFormatters,
+          javascriptreact = webdevFormatters,
+          typescriptreact = webdevFormatters,
+          css = { "prettier" },
+          html = { "prettier" },
+          json = { "prettier" },
+          yaml = { "prettier" },
+          markdown = { "prettier" },
+          graphql = { "prettier" },
           lua = { "stylua" },
           python = { "isort", "black" },
           go = {
@@ -207,13 +217,24 @@ return {
       })
 
       local lint = require "lint"
+      local webdevLinters = { "biomejs", "eslint_d", "eslint" }
       lint.linters_by_ft = {
-        javascript = { "eslint_d" },
-        typescript = { "eslint_d" },
-        javascriptreact = { "eslint_d" },
-        typescriptreact = { "eslint_d" },
+        javascript = webdevLinters,
+        typescript = webdevLinters,
+        javascriptreact = webdevLinters,
+        typescriptreact = webdevLinters,
         python = { "pylint" },
         go = { "golangcilint" },
+      }
+      lint.linters.eslint_d.args = {
+        "--no-warn-ignored", -- See https://github.com/mfussenegger/nvim-lint/issues/462#issuecomment-1986702915
+        "--format",
+        "json",
+        "--stdin",
+        "--stdin-filename",
+        function()
+          return vim.api.nvim_buf_get_name(0)
+        end,
       }
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
         group = vim.api.nvim_create_augroup("lint", { clear = true }),
