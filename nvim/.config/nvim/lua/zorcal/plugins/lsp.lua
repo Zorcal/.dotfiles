@@ -41,7 +41,7 @@ return {
         lua_ls = true,
         rust_analyzer = true,
         cssls = true,
-        tsserver = true,
+        ts_ls = true,
         emmet_ls = {
           filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
         },
