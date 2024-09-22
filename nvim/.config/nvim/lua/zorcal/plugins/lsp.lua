@@ -227,7 +227,7 @@ return {
         go = { "golangcilint" },
       }
       lint.linters.eslint_d.args = {
-        "--no-warn-ignored", -- See https://github.com/mfussenegger/nvim-lint/issues/462#issuecomment-1986702915
+        "--no-ignore",
         "--format",
         "json",
         "--stdin",
