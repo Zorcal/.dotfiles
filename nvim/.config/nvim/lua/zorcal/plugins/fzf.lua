@@ -7,6 +7,10 @@ return {
       defaults = {
         file_icons = false,
       },
+      diagnostic = {
+        previewer = false,
+        severity_sort = true,
+      },
       winopts = {
         preview = { default = "bat" },
         row = 1,

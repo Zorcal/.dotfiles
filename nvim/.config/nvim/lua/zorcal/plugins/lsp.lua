@@ -151,6 +151,15 @@ return {
         end,
       })
 
+      vim.diagnostic.config {
+        virtual_text = {
+          source = true, -- Show source in virtual text
+        },
+        float = {
+          source = true, -- Show source in floating window
+        },
+      }
+
       -- Autoformatting setup
       local conform = require "conform"
       local webdevFormatters = (function()
