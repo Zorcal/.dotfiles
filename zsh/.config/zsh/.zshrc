@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+# Turn on profiling:
+#zmodload zsh/zprof
+
 [[ -f "$ZDOTDIR/.zshexports" ]] && . "$ZDOTDIR/.zshexports"
 
 # Autoload zsh add-zsh-hook and vcs_info functions (-U autoload w/o substition, -z use zsh style)
@@ -11,6 +14,10 @@ add-zsh-hook precmd vcs_info
 # Only display short path in prompt.
 PROMPT='%(5~|%-1~/…/%3~|%4~) %F{blue}${vcs_info_msg_0_}%f %# '
 
+# Make completion menues nicer.
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+
 # Enable checking for (un)staged changes, enabling use of %u and %c
 zstyle ':vcs_info:*' check-for-changes true
 # Set custom strings for an unstaged vcs repo changes (*) and staged changes (+)
@@ -19,15 +26,6 @@ zstyle ':vcs_info:*' stagedstr ' +'
 # Set the format of the Git information for vcs_info
 zstyle ':vcs_info:git:*' formats       '(%b%u%c)'
 zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'
-
-# Activate zsh completion system.
-fpath=('/home/j/.local/share/pop/completion/zsh' $fpath)
-autoload -Uz +X compinit && compinit
-zmodload zsh/zpty
-
-# Make completion menues nicer.
-zstyle ':completion:*' menu select
-zmodload zsh/complist
 
 # Use vim keys in tab complete menu.
 bindkey -M menuselect 'h' vi-backward-char
@@ -88,11 +86,18 @@ alias emacs="emacsclient -c --alternate-editor=''"
 zsh_add_plugin "agkozak/zsh-z"
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
+zsh_add_plugin "qoomon/zsh-lazyload"
 
-[[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh"
+[[ -s "$NVM_DIR/nvm.sh" ]] && lazyload nvm -- "source $NVM_DIR/nvm.sh"
 
 [[ -f "$ZDOTDIR/.zshfuncs" ]] && . "$ZDOTDIR/.zshfuncs"
 
 [[ -f "$ZDOTDIR/.zshworkprofile" ]] && . "$ZDOTDIR/.zshworkprofile"
 
-source '/home/j/.local/share/pop/shell_init/zsh/init.zsh' # added by pop
+
+# Activate zsh completion system.
+autoload -Uz +X compinit && compinit
+zmodload zsh/zpty
+
+# Turn off profiling:
+#zprof
