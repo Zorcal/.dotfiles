@@ -94,10 +94,11 @@ zsh_add_plugin "qoomon/zsh-lazyload"
 
 [[ -f "$ZDOTDIR/.zshworkprofile" ]] && . "$ZDOTDIR/.zshworkprofile"
 
-
 # Activate zsh completion system.
 autoload -Uz +X compinit && compinit
 zmodload zsh/zpty
 
 # Turn off profiling:
 #zprof
+
+source '/home/j/.local/share/pop/shell_init/zsh/init.zsh' # added by pop
