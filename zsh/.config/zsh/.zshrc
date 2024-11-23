@@ -90,6 +90,7 @@ zsh_add_plugin "qoomon/zsh-lazyload"
 
 [[ -s "$NVM_DIR/nvm.sh" ]] && lazyload nvm -- "source $NVM_DIR/nvm.sh"
 
+[[ -f "$ZDOTDIR/.zshprivate" ]] && . "$ZDOTDIR/.zshprivate"
 [[ -f "$ZDOTDIR/.zshfuncs" ]] && . "$ZDOTDIR/.zshfuncs"
 
 [[ -f "$ZDOTDIR/.zshworkprofile" ]] && . "$ZDOTDIR/.zshworkprofile"
