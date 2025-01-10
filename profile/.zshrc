@@ -2,7 +2,7 @@
 export EDITOR="nvim"
 export VISUAL="nvim"
 export TERMINAL="alacritty"
-export BROWSER="firefox"
+export BROWSER="flatpak run com.google.Chrome"
 
 # XDG
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -169,8 +169,13 @@ if [ "$SSH_AUTH_SOCK" = "" -a -x /usr/bin/ssh-agent ]; then
 	ssh-add ~/.ssh/id_ed25519
 fi
 
-[[ -s "$NVM_DIR/nvm.sh" ]] && lazyload nvm -- "source $NVM_DIR/nvm.sh"
+# [[ -s "$NVM_DIR/nvm.sh" ]] && lazyload nvm -- "source $NVM_DIR/nvm.sh"
 
 # Use modern completion system
 autoload -Uz compinit; compinit
 zmodload zsh/zpty
+
+source '/home/j/.local/share/pop/shell_init/zsh/init.zsh' # added by pop
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /home/j/.local/share/go/bin/projectadmin projectadmin
