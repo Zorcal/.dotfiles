@@ -75,6 +75,7 @@ return {
         terraformls = true,
         gleam = true,
         hyprls = true,
+        erlangls = true,
       }
 
       require("mason").setup {}
@@ -111,36 +112,13 @@ return {
           vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, opts)
           vim.keymap.set("n", "<leader>li", vim.diagnostic.open_float, opts)
           vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
-          vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-          vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-          vim.keymap.set("n", "gi", function()
-            local params = vim.lsp.util.make_position_params()
-            vim.lsp.buf_request(0, "textDocument/implementation", params, function(err, result, ctx, config)
-              if result == nil then
-                return
-              end
-
-              local ft = vim.api.nvim_get_option_value("filetype", { buf = ctx.bufnr })
-
-              -- In Go code, I do not like to see any mocks for impls...
-              if ft == "go" then
-                local new_result = vim.tbl_filter(function(v)
-                  return not (
-                    string.find(v.uri, "mock_")
-                    or string.find(v.uri, "mocks_")
-                    or string.find(v.uri, "mock/")
-                    or string.find(v.uri, "mocks/")
-                  )
-                end, result)
-                if #new_result > 0 then
-                  result = new_result
-                end
-              end
-
-              vim.lsp.handlers["textDocument/implementation"](err, result, ctx, config)
-              vim.cmd [[normal! zz]]
-            end)
+          vim.keymap.set("n", "]d", function()
+            vim.diagnostic.jump { count = 1, float = true }
           end, opts)
+          vim.keymap.set("n", "[d", function()
+            vim.diagnostic.jump { count = -1, float = true }
+          end, opts)
+          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
 
           -- Some lsp keymaps are configured in fzf config
 
