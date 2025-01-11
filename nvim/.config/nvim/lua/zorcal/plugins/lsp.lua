@@ -76,6 +76,18 @@ return {
         gleam = true,
         hyprls = true,
         erlangls = true,
+        hls = {
+          filetypes = {
+            "haskell",
+            "lhaskell",
+            "cabal",
+          },
+          settings = {
+            haskell = {
+              formattingProvider = "ormolu",
+            },
+          },
+        },
       }
 
       require("mason").setup {}
@@ -180,6 +192,9 @@ return {
           sh = { "shellcheck", "shfmt" },
           bash = { "shellcheck", "shfmt" },
           tf = { "terraform_fmt" },
+          haskell = { "ormolu" },
+          lhaskell = { "ormolu" },
+          cabal = { "ormolu" },
         },
       }
       require("conform.util").add_formatter_args(require "conform.formatters.goimports", {
