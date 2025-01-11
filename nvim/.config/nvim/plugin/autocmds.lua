@@ -43,3 +43,10 @@ autocmd({ "BufRead", "BufNewFile" }, {
   desc = "Those damn format options...",
   command = [[setlocal formatoptions-=cro]],
 })
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*.hs",
+  callback = function()
+    vim.cmd "setlocal syntax=OFF"
+  end,
+})
