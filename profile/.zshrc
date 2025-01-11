@@ -179,3 +179,5 @@ source '/home/j/.local/share/pop/shell_init/zsh/init.zsh' # added by pop
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/j/.local/share/go/bin/projectadmin projectadmin
+
+[ -f "/home/j/.ghcup/env" ] && . "/home/j/.ghcup/env" # ghcup-env
