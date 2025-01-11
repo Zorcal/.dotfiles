@@ -16,10 +16,12 @@ return {
         modules = {},
         highlight = {
           enable = true,
+          disable = { "haskell" },
           additional_vim_regex_highlighting = false,
         },
         incremental_selection = {
           enable = true,
+          disable = { "haskell" },
           keymaps = {
             init_selection = "<M-n>",
             node_incremental = "<M-n>",
@@ -30,6 +32,7 @@ return {
         textobjects = {
           select = {
             enable = true,
+            disable = { "haskell" },
             lookahead = true,
             include_surrounding_whitespace = true,
             keymaps = {
@@ -50,6 +53,7 @@ return {
           },
           move = {
             enable = true,
+            disable = { "haskell" },
             set_jumps = true,
             goto_next_start = {
               ["]f"] = "@function.outer",
@@ -70,6 +74,7 @@ return {
           },
           swap = {
             enable = true,
+            disable = { "haskell" },
             swap_next = { ["<leader>z"] = "@parameter.inner" },
             swap_previous = { ["<leader>Z"] = "@parameter.inner" },
           },

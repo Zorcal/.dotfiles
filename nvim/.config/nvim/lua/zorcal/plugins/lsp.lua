@@ -84,7 +84,7 @@ return {
           },
           settings = {
             haskell = {
-              formattingProvider = "ormolu",
+              formattingProvider = "none",
             },
           },
         },
