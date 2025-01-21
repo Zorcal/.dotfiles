@@ -31,7 +31,7 @@
     colorMoved = default
     algorithm = histogram
 [push]
-    autoSetupRemote = true
+	autoSetupRemote = true
 [pull]
     rebase = true
 [branch]
@@ -64,4 +64,4 @@
 [url "ssh://git@github.com/grpc-gateway/"]
     insteadOf = https://github.com/grpc-gateway/
 [rerere]
-    enabled = true
+    enabled = false
