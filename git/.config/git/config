@@ -32,6 +32,7 @@
     algorithm = histogram
 [push]
 	autoSetupRemote = true
+	default = current
 [pull]
     rebase = true
 [branch]
@@ -65,3 +66,5 @@
     insteadOf = https://github.com/grpc-gateway/
 [rerere]
     enabled = false
+[remote]
+	pushDefault = origin
