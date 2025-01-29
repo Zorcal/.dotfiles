@@ -169,13 +169,15 @@ if [ "$SSH_AUTH_SOCK" = "" -a -x /usr/bin/ssh-agent ]; then
 	ssh-add ~/.ssh/id_ed25519
 fi
 
-# [[ -s "$NVM_DIR/nvm.sh" ]] && lazyload nvm -- "source $NVM_DIR/nvm.sh"
+. "$HOME/.asdf/asdf.sh"
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+
+source '/home/j/.local/share/pop/shell_init/zsh/init.zsh' # added by pop
 
 # Use modern completion system
 autoload -Uz compinit; compinit
 zmodload zsh/zpty
-
-source '/home/j/.local/share/pop/shell_init/zsh/init.zsh' # added by pop
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/j/.local/share/go/bin/projectadmin projectadmin
@@ -185,3 +187,7 @@ complete -o nospace -C /home/j/.local/share/go/bin/projectadmin projectadmin
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     eval "$(ssh-agent -s)"
 fi
+
+function chfmt() {
+  clickhouse-format
+}
