@@ -184,9 +184,9 @@ complete -o nospace -C /home/j/.local/share/go/bin/projectadmin projectadmin
 
 [ -f "/home/j/.ghcup/env" ] && . "/home/j/.ghcup/env" # ghcup-env
 
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    eval "$(ssh-agent -s)"
-fi
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519_nahojer
+ssh-add ~/.ssh/id_ed25519_zorcal
 
 function chfmt() {
   clickhouse-format
