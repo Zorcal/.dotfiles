@@ -54,6 +54,7 @@ export PATH="$PATH:$XDG_DATA_HOME/go/bin"
 #   ln -s $XDG_DATA_HOME/zig-linux-x86_64-0.13.0 $XDG_DATA_HOME/zig
 export PATH="$PATH:$XDG_DATA_HOME/zig"
 export PATH="$PATH:$XDG_DATA_HOME/zls/bin"
+export PATH="$PATH:$XDG_DATA_HOME/Odin"
 export PATH="$PATH:$XDG_DATA_HOME/bazelisk/bin"
 export PATH="$PATH:$XDG_DATA_HOME/cargo/bin"
 export PATH="$PATH:$XDG_DATA_HOME/npm/bin"
