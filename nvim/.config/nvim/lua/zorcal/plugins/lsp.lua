@@ -5,14 +5,7 @@ return {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
-
       { "j-hui/fidget.nvim", opts = {} },
-
-      -- Autoformatting
-      "stevearc/conform.nvim",
-
-      -- Linting
-      "mfussenegger/nvim-lint",
     },
     config = function()
       require("vim.lsp.log").set_format_func(vim.inspect)
@@ -103,95 +96,6 @@ return {
           source = true, -- Show source in floating window
         },
       }
-
-      -- Autoformatting setup
-      local conform = require "conform"
-      local webdevFormatters = (function()
-        if conform.get_formatter_info("biome", 0).available then
-          return { "biome", "biome-check" }
-        elseif conform.get_formatter_info("eslint_d", 0).available then
-          return { "prettier", "eslint_d" }
-        else
-          return {}
-        end
-      end)()
-      conform.setup {
-        formatters = {
-          clickhousefmt = {
-            command = "/usr/bin/clickhouse-format",
-            stdin = true,
-          },
-        },
-        formatters_by_ft = {
-          javascript = webdevFormatters,
-          typescript = webdevFormatters,
-          javascriptreact = webdevFormatters,
-          typescriptreact = webdevFormatters,
-          css = { "prettier" },
-          html = { "prettier" },
-          json = { "prettier" },
-          yaml = { "prettier" },
-          markdown = { "prettier" },
-          graphql = { "prettier" },
-          lua = { "stylua" },
-          python = { "isort", "black" },
-          go = {
-            -- See formatter_args below. golines is a wrapper around gofumpt.
-            "goimports",
-            "gofumpt",
-          },
-          rust = { "rustfmt" },
-          toml = { "taplo" },
-          sql = { "sql_formatter" },
-          tf = { "terraform_fmt" },
-        },
-      }
-      require("conform.util").add_formatter_args(require "conform.formatters.goimports", {
-        "-local",
-        "github.com/formulatehq",
-      })
-
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        callback = function(args)
-          local opts = {
-            bufnr = args.buf,
-            lsp_fallback = true,
-            async = false,
-            quiet = false,
-            timeout_ms = 500,
-          }
-          require("conform").format(opts)
-        end,
-      })
-
-      local lint = require "lint"
-      local webdevLinters = {
-        "biomejs", --[[ "eslint_d", "eslint" ]]
-      }
-      lint.linters_by_ft = {
-        javascript = webdevLinters,
-        typescript = webdevLinters,
-        javascriptreact = webdevLinters,
-        typescriptreact = webdevLinters,
-        python = { "pylint" },
-        go = { "golangcilint" },
-      }
-      lint.linters.eslint_d.args = {
-        "--no-ignore",
-        "--format",
-        "json",
-        "--stdin",
-        "--stdin-filename",
-        function()
-          return vim.api.nvim_buf_get_name(0)
-        end,
-      }
-      vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-        group = vim.api.nvim_create_augroup("lint", { clear = true }),
-        callback = function()
-          lint.try_lint(nil, { ignore_errors = true })
-        end,
-      })
     end,
   },
 }
