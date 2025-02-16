@@ -1,6 +1,15 @@
 local opt = vim.opt
 
+opt.syntax = "off"
+for _, group in pairs(vim.fn.getcompletion("@", "highlight")) do
+  vim.api.nvim_set_hl(0, group, {})
+end
+
 opt.inccommand = "split"
+
+-- "menu,menuone" ensures that a completion menu appears even if there’s only one match.
+-- "noselect" means the first item isn’t automatically selected, so we don’t accidentally confirm the wrong completion.
+opt.completeopt = "menu,menuone,noselect"
 
 opt.mouse = ""
 
@@ -56,9 +65,6 @@ vim.cmd "cnoreabbrev QA qa"
 opt.wildignore = "*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx"
 
 opt.jumpoptions = "stack,view"
-
-opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-opt.foldtext = "v:lua.vim.treesitter.foldtext()"
 
 if vim.g.neovide then
   -- vim.o.guifont = "JetBrains Mono:h12"

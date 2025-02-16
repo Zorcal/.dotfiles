@@ -64,16 +64,29 @@ vim.cmd [[
     endif
   endfunction
 ]]
-vim.keymap.set("n", "<C-q>", ":call ToggleQuickfixList()<CR>")
+set("n", "<C-q>", ":call ToggleQuickfixList()<CR>")
+
+function _G.toggle_light_dark()
+  if vim.o.background == "dark" then
+    vim.o.background = "light"
+  else
+    vim.o.background = "dark"
+  end
+  -- Re-run ColorScheme autocmds so your highlight overrides apply
+  vim.cmd "doautocmd ColorScheme"
+end
+set("n", "<leader>tb", toggle_light_dark, { desc = "Toggle light/dark background" })
+
+set("n", "-", ":Explore<CR>", { silent = true, noremap = true })
 
 if vim.g.neovide then
   local change_scale_factor = function(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
   end
-  vim.keymap.set("n", "<C-=>", function()
+  set("n", "<C-=>", function()
     change_scale_factor(1.25)
   end)
-  vim.keymap.set("n", "<C-->", function()
+  set("n", "<C-->", function()
     change_scale_factor(1 / 1.25)
   end)
 end

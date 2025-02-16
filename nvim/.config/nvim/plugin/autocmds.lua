@@ -3,14 +3,6 @@ local autocmd = vim.api.nvim_create_autocmd
 
 local zorcal_group = augroup("zorcal", {})
 
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    -- Make NeoVim transparent.
-    vim.cmd "hi! Normal guibg=NONE ctermbg=NONE"
-    vim.cmd "hi! NonText guibg=NONE ctermbg=NONE"
-  end,
-})
-
 autocmd("TextYankPost", {
   group = zorcal_group,
   pattern = "*",
@@ -44,9 +36,71 @@ autocmd({ "BufRead", "BufNewFile" }, {
   command = [[setlocal formatoptions-=cro]],
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "*.hs",
-  callback = function()
-    vim.cmd "setlocal syntax=OFF"
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+  callback = function(args)
+    vim.treesitter.stop(args.buf)
   end,
 })
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    if vim.o.background == "light" then
+      vim.api.nvim_set_hl(0, "Normal", {
+        fg = "#000000",
+        bg = "#cccccc",
+      })
+      vim.api.nvim_set_hl(0, "Comment", {
+        fg = "#888888",
+        bg = "NONE",
+      })
+    else
+      vim.api.nvim_set_hl(0, "Normal", {
+        fg = "#cccccc",
+        bg = "#000000",
+      })
+      vim.api.nvim_set_hl(0, "Comment", {
+        fg = "#888888",
+        bg = "NONE",
+      })
+    end
+
+    local link_to_normal = {
+      "String",
+      "Function",
+      "Identifier",
+      "Type",
+      "Keyword",
+      "Statement",
+      "Conditional",
+      "Repeat",
+      "Operator",
+      "Number",
+      "Boolean",
+      "Float",
+      "Constant",
+      "Character",
+      "Label",
+      "PreProc",
+      "Include",
+      "Define",
+      "Macro",
+      "PreCondit",
+      "StorageClass",
+      "Structure",
+      "Typedef",
+      "Special",
+      "SpecialChar",
+      "Delimiter",
+      "SpecialComment",
+      "Underlined",
+      "Ignore",
+      "Error",
+      "Todo",
+    }
+    for _, group in ipairs(link_to_normal) do
+      vim.api.nvim_set_hl(0, group, { link = "Normal" })
+    end
+  end,
+})
+
+vim.api.nvim_exec_autocmds("ColorScheme", {})

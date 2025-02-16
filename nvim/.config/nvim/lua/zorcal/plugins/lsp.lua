@@ -2,7 +2,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "folke/neodev.nvim",
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -14,31 +13,30 @@ return {
 
       -- Linting
       "mfussenegger/nvim-lint",
-
-      -- Schema information
-      "b0o/SchemaStore.nvim",
     },
     config = function()
       require("vim.lsp.log").set_format_func(vim.inspect)
-
-      require("neodev").setup {
-        library = {
-          plugins = { "nvim-dap-ui" },
-          types = true,
-        },
-      }
-
-      local capabilities = nil
-      if pcall(require, "cmp_nvim_lsp") then
-        capabilities = require("cmp_nvim_lsp").default_capabilities()
-      end
 
       local lspconfig = require "lspconfig"
 
       local servers = {
         bashls = true,
         gopls = true,
-        lua_ls = true,
+        lua_ls = {
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = { "vim" },
+              },
+              workspace = {
+                library = {
+                  [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+                  [vim.fn.stdpath "config" .. "/lua"] = true,
+                },
+              },
+            },
+          },
+        },
         rust_analyzer = true,
         cssls = true,
         ts_ls = true,
@@ -46,48 +44,9 @@ return {
           filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
         },
         pyright = true,
-        vimls = true,
-        jsonls = {
-          settings = {
-            json = {
-              schemas = require("schemastore").json.schemas(),
-              validate = { enable = true },
-            },
-          },
-        },
-        yamlls = {
-          settings = {
-            yaml = {
-              schemaStore = {
-                enable = false,
-                url = "",
-              },
-              schemas = require("schemastore").yaml.schemas(),
-            },
-          },
-        },
-        dockerls = true,
-        docker_compose_language_service = true,
-        marksman = true,
-        awk_ls = true,
         zls = true,
         sqlls = true,
         terraformls = true,
-        gleam = true,
-        hyprls = true,
-        erlangls = true,
-        hls = {
-          filetypes = {
-            "haskell",
-            "lhaskell",
-            "cabal",
-          },
-          settings = {
-            haskell = {
-              formattingProvider = "none",
-            },
-          },
-        },
       }
 
       require("mason").setup {}
@@ -101,21 +60,20 @@ return {
         if type(config) ~= "table" then
           config = {}
         end
-        config = vim.tbl_deep_extend("force", {}, { capabilities = capabilities }, config)
         lspconfig[name].setup(config)
       end
-
-      local disable_semantic_tokens = {
-        lua = true,
-        haskell = true,
-      }
 
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
           local bufnr = args.buf
           local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
 
-          vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
+          -- Turn off LSP highlighting...
+          client.server_capabilities.semanticTokensProvider = nil
+
+          -- Use built-in LSP omnifunc for completion
+          vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+
           local opts = { buffer = bufnr, remap = false }
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
@@ -134,11 +92,6 @@ return {
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
 
           -- Some lsp keymaps are configured in fzf config
-
-          local filetype = vim.bo[bufnr].filetype
-          if disable_semantic_tokens[filetype] then
-            client.server_capabilities.semanticTokensProvider = nil
-          end
         end,
       })
 
@@ -190,12 +143,7 @@ return {
           rust = { "rustfmt" },
           toml = { "taplo" },
           sql = { "sql_formatter" },
-          sh = { "shellcheck", "shfmt" },
-          bash = { "shellcheck", "shfmt" },
           tf = { "terraform_fmt" },
-          haskell = { "ormolu" },
-          lhaskell = { "ormolu" },
-          cabal = { "ormolu" },
         },
       }
       require("conform.util").add_formatter_args(require "conform.formatters.goimports", {
@@ -212,9 +160,6 @@ return {
             quiet = false,
             timeout_ms = 500,
           }
-          if vim.bo.filetype == "sql" and vim.api.nvim_buf_get_name(args.buf):find "clickhouse" then
-            opts.formatters = { "clickhousefmt" }
-          end
           require("conform").format(opts)
         end,
       })
