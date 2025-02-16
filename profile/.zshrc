@@ -186,8 +186,8 @@ complete -o nospace -C /home/j/.local/share/go/bin/projectadmin projectadmin
 [ -f "/home/j/.ghcup/env" ] && . "/home/j/.ghcup/env" # ghcup-env
 
 eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519_nahojer
 ssh-add ~/.ssh/id_ed25519_zorcal
+ssh-add ~/.ssh/id_ed25519_nahojer
 
 function chfmt() {
   clickhouse-format
