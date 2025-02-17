@@ -1,5 +1,9 @@
 local opt = vim.opt
 
+if vim.fn.has "termguicolors" == 1 then
+  vim.opt.termguicolors = true
+end
+
 opt.syntax = "off"
 for _, group in pairs(vim.fn.getcompletion("@", "highlight")) do
   vim.api.nvim_set_hl(0, group, {})

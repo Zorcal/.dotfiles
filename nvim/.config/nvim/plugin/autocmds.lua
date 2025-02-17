@@ -54,14 +54,15 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         bg = "NONE",
       })
     else
+      local slate = "#253443"
       vim.api.nvim_set_hl(0, "Normal", {
-        fg = "#cccccc",
-        bg = "#000000",
+        fg = "#f0f1f2",
+        bg = slate,
       })
-      vim.api.nvim_set_hl(0, "Comment", {
-        fg = "#888888",
-        bg = "NONE",
-      })
+      -- vim.api.nvim_set_hl(0, "Comment", {
+      --   fg = "#888888",
+      --   bg = "NONE",
+      -- })
     end
 
     local link_to_normal = {
@@ -96,6 +97,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
       "Ignore",
       "Error",
       "Todo",
+      "Comment",
     }
     for _, group in ipairs(link_to_normal) do
       vim.api.nvim_set_hl(0, group, { link = "Normal" })
