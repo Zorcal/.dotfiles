@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 if vim.fn.has "termguicolors" == 1 then
-  vim.opt.termguicolors = true
+  opt.termguicolors = true
 end
 
 opt.syntax = "off"
