@@ -28,3 +28,5 @@ require("lazy").setup({ import = "zorcal/plugins" }, {
     notify = false,
   },
 })
+
+vim.api.nvim_exec_autocmds("ColorScheme", {})

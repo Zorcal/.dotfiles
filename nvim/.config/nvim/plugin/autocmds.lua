@@ -46,23 +46,14 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function()
     if vim.o.background == "light" then
       vim.api.nvim_set_hl(0, "Normal", {
-        fg = "#000000",
-        bg = "#cccccc",
-      })
-      vim.api.nvim_set_hl(0, "Comment", {
-        fg = "#888888",
-        bg = "NONE",
+        fg = "#202224",
+        bg = "#ffffdd",
       })
     else
-      local slate = "#253443"
       vim.api.nvim_set_hl(0, "Normal", {
         fg = "#f0f1f2",
-        bg = slate,
+        bg = "#253443",
       })
-      -- vim.api.nvim_set_hl(0, "Comment", {
-      --   fg = "#888888",
-      --   bg = "NONE",
-      -- })
     end
 
     local link_to_normal = {
@@ -104,5 +95,3 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     end
   end,
 })
-
-vim.api.nvim_exec_autocmds("ColorScheme", {})
