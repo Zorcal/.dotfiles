@@ -24,6 +24,7 @@ export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
 export DOOMDIR="$XDG_CONFIG_HOME/doom"
+# export HELIX_RUNTIME="$XDG_CONFIG_HOME/helix/runtime"
 
 # Data
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
