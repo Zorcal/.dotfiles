@@ -1,0 +1,23 @@
+super + Escape
+	pkill -USR1 -x sxhkd # make sxhkd reload its configuration files:
+
+XF86MonBrightnessUp
+	brightnessctl set +3%
+
+XF86MonBrightnessDown
+	brightnessctl set 3%-
+
+XF86AudioMute
+	pamixer --toggle-mute
+
+XF86Audio{Lower,Raise}Volume
+	pamixer -{d,i} 5
+
+super + Return
+	st
+
+super + p
+	dmenu_run
+
+super + ctrl + p
+	togglexkbmap
