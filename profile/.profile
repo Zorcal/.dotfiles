@@ -25,3 +25,5 @@ if [ -n "$ZSH_VERSION" ]; then
 	. "$HOME/.zshrc"
     fi
 fi
+
+complete -C /home/j/.local/share/go/bin/projectadmin projectadmin

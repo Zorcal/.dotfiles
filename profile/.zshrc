@@ -28,7 +28,6 @@ export DOOMDIR="$XDG_CONFIG_HOME/doom"
 
 # Data
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
-export GOPATH="$XDG_DATA_HOME/go"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
@@ -54,6 +53,7 @@ export PATH="$PATH:$XDG_DATA_HOME/go/bin"
 #   mv zig-linux-x86_64-0.13.0 $XDG_DATA_HOME/
 #   ln -s $XDG_DATA_HOME/zig-linux-x86_64-0.13.0 $XDG_DATA_HOME/zig
 export PATH="$PATH:$XDG_DATA_HOME/zig"
+export PATH="$PATH:$HOME/.rover/bin"
 export PATH="$PATH:$XDG_DATA_HOME/zls/bin"
 export PATH="$PATH:$XDG_DATA_HOME/Odin"
 export PATH="$PATH:$XDG_DATA_HOME/bazelisk/bin"
