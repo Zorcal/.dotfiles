@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
 setxkbmap -query | grep -q 'us' && setxkbmap se || setxkbmap us,se
+
+setstatusbar
