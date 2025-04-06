@@ -1,8 +1,7 @@
 source "$HOME/.profile"
 
-export EDITOR="nvim"
-export VISUAL="nvim"
-export TERMINAL="st"
+eval "$(ssh-agent -s)" > /dev/null
+ssh-add ~/.ssh/id_ed25519
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 export HISTSIZE=1000000
@@ -109,3 +108,4 @@ zsh_add_plugin "qoomon/zsh-lazyload"
 # Use modern completion system
 autoload -Uz compinit; compinit
 zmodload zsh/zpty
+
