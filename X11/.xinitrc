@@ -39,8 +39,9 @@ xrandr --dpi 96
 xset r rate 300 50 &
 
 xsetroot -cursor_name left_ptr &
+
 while true; do
-	xsetroot -name "$( date +"%F %R" )"
+	setstatusbar
 	sleep 1m
 done &
 
