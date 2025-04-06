@@ -1,6 +1,77 @@
 #!/bin/bash
 
-lang="$(setxkbmap -query | grep -q 'us' && echo "us" || echo "se")"
-datetext="$( date +"%F %R" )"
+function audio_text() {
+    is_muted="$(pamixer --get-mute)"
+    if [[ "$is_muted" == "true" ]]; then
+        is_muted="1"
+    else
+        is_muted="0"
+    fi
 
-xsetroot -name "$lang | $datetext"
+    volume="$(pamixer --get-volume)"
+
+    headphones_connected="$(pactl list sinks | grep -i 'active port' | grep -vq "speaker" && echo "1" || echo "0")"
+
+    if [[ "$headphones_connected" -eq 1 ]]; then
+        [[ "$is_muted" -eq 1 ]] && echo " 󰟎 " || echo "󰋋 $volume"
+    else
+      [[ "$is_muted" -eq 1 ]] && echo " 󰖁 " || echo "󰕾 $volume"
+    fi
+}
+
+function time_text() {
+  TZ=Europe/Stockholm date +"%I:%M %p"
+}
+
+function kblayout_text() {
+  layout=$(setxkbmap -query | grep -q 'us' && echo "us" || echo "se")
+  echo "$layout"
+}
+
+battery="BAT0"
+function has_battery() {
+  [[ -d /sys/class/power_supply/$battery ]] && echo 0 || echo 1;
+}
+function battery_text() {
+  status=$(cat "/sys/class/power_supply/$battery/status")
+
+  cap=$(cat "/sys/class/power_supply/$battery/capacity")
+  [[ "$status" == "Full" ]] && cap="100"
+
+  icon=""
+  if [ "$cap" -gt 0 ] && [ "$cap" -le 10 ]; then
+    icon="󰢜"
+    [[ "$status" == "Discharging" ]] && icon="󰁺"
+  elif [ "$cap" -gt 10 ] && [ "$cap" -le 20 ]; then
+    icon="󰂆"
+    [[ "$status" == "Discharging" ]] && icon="󰁻"
+  elif [ "$cap" -gt 20 ] && [ "$cap" -le 30 ]; then
+    icon="󰂇"
+    [[ "$status" == "Discharging" ]] && icon="󰁼"
+  elif [ "$cap" -gt 30 ] && [ "$cap" -le 40 ]; then
+    icon="󰂈"
+    [[ "$status" == "Discharging" ]] && icon="󰁽"
+  elif [ "$cap" -gt 40 ] && [ "$cap" -le 50 ]; then
+    icon="󰢝"
+    [[ "$status" == "Discharging" ]] && icon="󰁾"
+  elif [ "$cap" -gt 50 ] && [ "$cap" -le 60 ]; then
+    icon="󰂉"
+    [[ "$status" == "Discharging" ]] && icon="󰁿"
+  elif [ "$cap" -gt 60 ] && [ "$cap" -le 70 ]; then
+    icon="󰢞"
+    [[ "$status" == "Discharging" ]] && icon="󰂀"
+  elif [ "$cap" -gt 70 ] && [ "$cap" -le 80 ]; then
+    icon="󰂊"
+    [[ "$status" == "Discharging" ]] && icon="󰂁"
+  elif [ "$cap" -gt 80 ] && [ "$cap" -le 90 ]; then
+    icon="󰂋"
+    [[ "$status" == "Discharging" ]] && icon="󰂂"
+  else
+    icon="󰂄"
+    [[ "$status" == "Discharging" ]] && icon="󰁹"
+  fi
+
+  echo "$icon $cap%"
+}
+
+xsetroot -name  " $(audio_text) | $(battery_text) | $(kblayout_text) | $(time_text) "
