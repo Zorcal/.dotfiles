@@ -17,7 +17,7 @@ XF86Audio{Lower,Raise}Volume
 	pamixer -{d,i} 5 ; setstatusbar
 
 super + Return
-	st
+	alacritty
 
 super + p
 	dmenu_run
