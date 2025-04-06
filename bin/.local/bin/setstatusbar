@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 lang="$(setxkbmap -query | grep -q 'us' && echo "us" || echo "se")"
 datetext="$( date +"%F %R" )"

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 setxkbmap -query | grep -q 'us' && setxkbmap se || setxkbmap us,se
 
