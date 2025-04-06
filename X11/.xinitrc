@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash env
 
 source "$HOME/.profile"
 
@@ -47,7 +47,7 @@ done &
 
 xset s 300 5 &
 
-setxkbmap us,se -option caps:escape &
+setxkbmap us,se &
 
 autostart="mpd dunst clipmenu"
 for program in $autostart; do

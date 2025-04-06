@@ -19,5 +19,5 @@ super + Return
 super + p
 	dmenu_run
 
-super + ctrl + p
-	togglexkbmap
+Caps_Lock
+    toggelxkbmap
