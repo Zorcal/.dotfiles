@@ -1,6 +1,9 @@
 super + Escape
 	pkill -USR1 -x sxhkd # make sxhkd reload its configuration files:
 
+Print
+    flameshot gui
+
 XF86MonBrightnessUp
 	brightnessctl set +3% ; setstatusbar
 
