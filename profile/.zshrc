@@ -1,7 +1,10 @@
 source "$HOME/.profile"
 
-eval "$(ssh-agent -s)" > /dev/null
-ssh-add ~/.ssh/id_ed25519
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  eval "$(ssh-agent -s)" > /dev/null
+fi
+ssh-add -l | grep -q 'id_ed25519' || ssh-add ~/.ssh/id_ed25519
+ssh-add -l | grep -q 'id_ed25519_work' || ssh-add ~/.ssh/id_ed25519_work
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 export HISTSIZE=1000000
