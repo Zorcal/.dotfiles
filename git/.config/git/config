@@ -56,12 +56,12 @@
     }; f"
 [url "ssh://git@gitlab.com"]
     insteadOf = https://gitlab.com
-[url "git@github.com:"]
+[url "ssh://git@github.com"]
     insteadOf = https://github.com
-[url "ssh://git@github.com/googleapis/"]
-    insteadOf = https://github.com/googleapis/
-[url "ssh://git@github.com/grpc-gateway/"]
-    insteadOf = https://github.com/grpc-gateway/
+[url "ssh://git@github.com/googleapis"]
+    insteadOf = https://github.com/googleapis
+[url "ssh://git@github.com/grpc-gateway"]
+    insteadOf = https://github.com/grpc-gateway
 [rerere]
     enabled = false
 [remote]
