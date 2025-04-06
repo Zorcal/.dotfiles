@@ -2,16 +2,16 @@ super + Escape
 	pkill -USR1 -x sxhkd # make sxhkd reload its configuration files:
 
 XF86MonBrightnessUp
-	brightnessctl set +3%
+	brightnessctl set +3% ; setstatusbar
 
 XF86MonBrightnessDown
-	brightnessctl set 3%-
+	brightnessctl set 3%- ; setstatusbar
 
 XF86AudioMute
-	pamixer --toggle-mute
+	pamixer --toggle-mute ; setstatusbar
 
 XF86Audio{Lower,Raise}Volume
-	pamixer -{d,i} 5
+	pamixer -{d,i} 5 ; setstatusbar
 
 super + Return
 	st
@@ -20,4 +20,4 @@ super + p
 	dmenu_run
 
 F35
-    togglexkbmap
+    togglexkbmap ; setstatusbar
