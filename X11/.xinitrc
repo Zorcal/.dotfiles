@@ -1,28 +1,16 @@
-#!/bin/bash env
+#!/bin/bash
 
 source "$HOME/.profile"
 
 sysresources="/etc/X11/xinit/.Xresources"
-sysmodmap="/etc/X11/xinit/.Xmodmap"
-
 if [ -f $sysresources ]; then
     xrdb -merge $sysresources
 fi
+xrdb -merge <<< "Xcursor.size: 24"
 
+sysmodmap="/etc/X11/xinit/.Xmodmap"
 if [ -f $sysmodmap ]; then
     xmodmap $sysmodmap
-fi
-
-userx11dir="$HOME/.config/X11"
-userresources="$userx11dir/Xresources"
-usermodmap="$userx11dir/Xmodmap"
-
-if [ -f "$userresources" ]; then
-    xrdb -merge "$userresources"
-fi
-
-if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
 fi
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
@@ -37,22 +25,21 @@ export WINIT_X11_SCALE_FACTOR=1
 xrandr --dpi 96
 
 xset r rate 300 50 &
+xset s 300 5 &
 
 xsetroot -cursor_name left_ptr &
 
-while true; do
-	setstatusbar
-	sleep 1m
-done &
-
-xset s 300 5 &
-
-setxkbmap us,se &
+setxkbmap us,se -option caps:none &
 
 autostart="mpd dunst clipmenu"
 for program in $autostart; do
 	pidof -s "$program" || "program" &
 done >/dev/null 2>&1
+
+while true; do
+    setstatusbar
+    sleep 1m
+done &
 
 sxhkd -c "$HOME/.config/sxhkd/sxhkdrc" &
 
