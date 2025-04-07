@@ -29,11 +29,8 @@ xset s 300 5
 
 xsetroot -cursor_name left_ptr
 
-setxkbmap us,se
-
-# Remap "caps lock" on keyboard to "F35".
-setxkbmap -option caps:none
-xmodmap -e "keycode 66 = F35"
+setxkbmap us,se -option caps:none
+xmodmap -e "keycode 66 = F35" # Remap "caps lock" on keyboard to "F35".
 
 autostart="mpd dunst clipmenu"
 for program in $autostart; do
