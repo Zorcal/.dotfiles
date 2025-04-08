@@ -43,8 +43,6 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 };
 
-static const Layout *lastlayouts[MAXMONITORS];
-
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
