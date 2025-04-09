@@ -1,0 +1,73 @@
+$foreground: #ffffff;
+$grey: #aaaaaa;
+$foreground-alt: #465059;
+$background: #0e1419;
+$black: #000000;
+$red: #ff6565;
+$green: #b8cc52;
+$yellow: #e6c446;
+$blue: #68d4ff;
+$magenta: #ffa3aa;
+$cyan: #36a3d9;
+$white: #ffffff;
+
+* {
+  all: unset;
+}
+
+window {
+  background: $background;
+}
+
+.bar {
+  font-family: "Roboto";
+  font-size: 13px;
+  margin: 0 13px;
+  padding: 5px 0px;
+
+  .workspaces {
+    font-size: 10px;
+    button {
+      margin: 0px 3px;
+    }
+    .occupied {
+      color: $grey;
+    }
+    .focused {
+      color: $white;
+    }
+    .urgent {
+      color: $red;
+    }
+    .empty {
+      padding-top: 2px;
+      color: $foreground-alt;
+      font-size: 10px;
+    }
+  }
+
+  .sidestuff {
+    color: $grey;
+
+    .metric {
+      margin-top: 1px; /* Ugly hack... I don't know how to center stuff... */
+      .label {
+        margin-right: 10px;
+      }
+      scale trough highlight {
+        all: unset;
+        background-color: $foreground;
+        color: #000000;
+        border-radius: 10px;
+      }
+      scale trough {
+        background-color: #4e4e4e;
+        border-radius: 50px;
+        min-height: 3px;
+        min-width: 50px;
+      }
+    }
+  }
+}
+
+

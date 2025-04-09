@@ -1,0 +1,89 @@
+; ---------------------
+; Windows
+; ---------------------
+
+(defwindow bar_primary
+  :monitor 0
+  :hexpand false
+  :vexpand false
+  :geometry (geometry :anchor "top left" :x 0 :y 0 :width "100%" :height "20px")
+  :reserve (struts :distance "30px" :side "top")
+  (bar_primary))
+
+(defwindow bar_secondary
+  :monitor 1
+  :hexpand false
+  :vexpand false
+  :geometry (geometry :anchor "top left" :x 0 :y 0 :width "100%" :height "20px")
+  :reserve (struts :distance "30px" :side "top")
+  (bar_secondary))
+
+; ---------------------
+; Widgets
+; ---------------------
+
+(defwidget bar_primary []
+  (box :orientation "h"
+       :space-evenly false
+       :class "bar"
+    (box :halign "start"
+         :space-evenly false
+      (workspaces_primary))
+    (sidestuff)))
+
+(defwidget bar_secondary []
+  (box :orientation "h"
+       :space-evenly false
+       :class "bar"
+    (box :halign "start"
+         :space-evenly false
+      (workspaces_secondary))
+    (sidestuff)))
+
+(defwidget workspaces_primary []
+  (literal :content workspaces_primary_listen))
+
+(defwidget workspaces_secondary []
+  (literal :content workspaces_secondary_listen))
+
+(defwidget sidestuff []
+  (box :class "sidestuff"
+       :spacing 12
+       :hexpand true
+       :vexpand true
+       :halign "end"
+       :space-evenly false
+    (volume)
+    (keyboard)
+    (battery)
+    (date)
+    (time)))
+
+(defwidget time []
+  (box :class "time" :orientation "h" :space-evenly false
+    (label :text "  ${time_poll}" )))
+
+(defwidget date []
+  (box :class "date" :orientation "h" :space-evenly false
+    (label :text "  ${date_poll}" )))
+
+(defwidget volume []
+  (literal :content volume_poll))
+
+(defwidget battery []
+  (literal :content battery_poll))
+
+(defwidget keyboard []
+  (literal :content keyboard_poll))
+
+; ---------------------
+; Variables
+; ---------------------
+
+(defpoll time_poll :interval "5s" "date +%H:%M")
+(defpoll date_poll :interval "1m" "date +%d/%m/%Y")
+(defpoll volume_poll :interval "1s" "./modules/volume.sh")
+(defpoll battery_poll :interval "1s" "./modules/battery.sh")
+(defpoll keyboard_poll :interval "1s" "./modules/keyboard.sh")
+(deflisten workspaces_primary_listen "./modules/workspaces_primary.sh")
+(deflisten workspaces_secondary_listen "./modules/workspaces_secondary.sh")

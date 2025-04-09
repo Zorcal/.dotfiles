@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo $(xrandr -q | grep "connected primary" | awk '{print $1}')

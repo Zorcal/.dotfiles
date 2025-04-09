@@ -29,19 +29,11 @@ xset s 300 5
 
 xsetroot -cursor_name left_ptr
 
-setxkbmap us,se -option caps:none
-xmodmap -e "keycode 66 = F35" # Remap "caps lock" on keyboard to "F35".
+setxkbmap us,se -option caps:escape &
 
 autostart="mpd dunst clipmenu"
 for program in $autostart; do
 	pidof -s "$program" || "program" &
 done >/dev/null 2>&1
 
-while true; do
-    setstatusbar
-    sleep 1m
-done &
-
-sxhkd -c "$HOME/.config/sxhkd/sxhkdrc" &
-
-exec startdwm
+exec bspwm

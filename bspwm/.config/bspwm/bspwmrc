@@ -1,0 +1,33 @@
+#!/bin/bash
+"$HOME"/.config/bspwm/autostart.sh
+
+# Monitors.
+bspc monitor "%$(primarymonitor)" -d 1 2 3 4 5 6
+[[ "$(secondarymonitor)" != "" ]] && bspc monitor "%$(secondarymonitor)" -d 7 8 9 0
+
+# Global Settings.
+bspc config gapless_monocle true
+bspc config borderless_monocle true
+bspc config single_monocle true
+bspc config split_ratio 0.5
+bspc config automatic_scheme alternate
+bspc config initial_polarity second_child
+bspc config pointer_modifier control
+bspc config pointer_action1 move
+bspc config pointer_action2 resize_corner
+bspc config pointer_action3 resize_side
+bspc config pointer_follows_focus false
+bspc config pointer_follows_monitor true
+bspc config focus_follows_pointer false
+bspc config remove_disabled_monitors true
+bspc config remove_unplugged_monitors true
+bspc config merge_overlapping_monitors true
+
+# Desktop Settings
+bspc config window_gap  8
+
+# Node Settings
+bspc config border_width    3
+
+# Rules
+bspc rule -r "*" # Remove any previously added rules

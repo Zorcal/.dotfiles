@@ -1,0 +1,9 @@
+#!/bin/bash
+
+BATTERY="BAT0"
+
+threshold="15"
+cap=$(cat "/sys/class/power_supply/$BATTERY/capacity")
+
+[[ "$cap" -lt "$threshold" ]] && notify-send -u critical "Battery below $threshold%\!"
+
