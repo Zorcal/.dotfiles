@@ -66,21 +66,3 @@ vim.cmd "cnoreabbrev QA qa"
 opt.wildignore = "*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx"
 
 opt.jumpoptions = "stack,view"
-
-if vim.g.neovide then
-  -- vim.o.guifont = "JetBrains Mono:h12"
-  -- vim.opt.linespace = 0
-  vim.g.neovide_scale_factor = 1.0
-  vim.g.neovide_padding_top = 0
-  vim.g.neovide_padding_bottom = 0
-  vim.g.neovide_padding_right = 0
-  vim.g.neovide_padding_left = 0
-
-  vim.g.neovide_transparency = 0.8
-
-  vim.g.neovide_cursor_trail_size = 0
-  vim.g.neovide_cursor_animation_length = 0
-  vim.g.neovide_position_animation_length = 0
-  vim.g.neovide_scroll_animation_length = 0
-  vim.g.neovide_scroll_animation_far_lines = 0
-end
