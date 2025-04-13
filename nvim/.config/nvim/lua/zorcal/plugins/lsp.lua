@@ -10,7 +10,9 @@ return {
     config = function()
       require("vim.lsp.log").set_format_func(vim.inspect)
 
-      local lspconfig = require "lspconfig"
+      require("mason").setup {}
+
+      require("mason-tool-installer").setup {}
 
       local servers = {
         bashls = true,
@@ -41,11 +43,7 @@ return {
         sqlls = true,
         terraformls = true,
       }
-
-      require("mason").setup {}
-
-      require("mason-tool-installer").setup {}
-
+      local lspconfig = require "lspconfig"
       for name, config in pairs(servers) do
         if not config then
           return
