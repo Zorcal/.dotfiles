@@ -60,9 +60,6 @@ return {
         callback = function(args)
           local bufnr = args.buf
 
-          -- Use built-in LSP omnifunc for completion
-          vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-
           local opts = { buffer = bufnr, remap = false }
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
