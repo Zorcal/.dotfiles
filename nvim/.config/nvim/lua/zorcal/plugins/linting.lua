@@ -11,8 +11,6 @@ return {
         typescript = webdevLinters,
         javascriptreact = webdevLinters,
         typescriptreact = webdevLinters,
-        python = { "pylint" },
-        -- go = { "golangcilint" },
       }
       lint.linters.eslint_d.args = {
         "--no-ignore",

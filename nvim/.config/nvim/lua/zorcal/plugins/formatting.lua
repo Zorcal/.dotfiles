@@ -8,41 +8,30 @@ return {
         if conform.get_formatter_info("biome", 0).available then
           return { "biome", "biome-check" }
         elseif conform.get_formatter_info("eslint_d", 0).available then
-          return { "prettier", "eslint_d" }
+          return { "prettierd", "eslint_d" }
         else
           return {}
         end
       end)()
 
       conform.setup {
-        formatters = {
-          clickhousefmt = {
-            command = "/usr/bin/clickhouse-format",
-            stdin = true,
-          },
-        },
         formatters_by_ft = {
           javascript = webdevFormatters,
           typescript = webdevFormatters,
           javascriptreact = webdevFormatters,
           typescriptreact = webdevFormatters,
-          css = { "prettier" },
-          html = { "prettier" },
-          json = { "prettier" },
-          yaml = { "prettier" },
-          markdown = { "prettier" },
-          graphql = { "prettier" },
+          css = { "prettierd" },
+          html = { "prettierd" },
+          json = { "prettierd" },
+          yaml = { "prettierd" },
+          markdown = { "prettierd" },
+          graphql = { "prettierd" },
           lua = { "stylua" },
-          python = { "isort", "black" },
           go = {
-            -- See formatter_args below. golines is a wrapper around gofumpt.
             "goimports",
             "gofumpt",
           },
-          rust = { "rustfmt" },
           toml = { "taplo" },
-          sql = { "sql_formatter" },
-          tf = { "terraform_fmt" },
         },
       }
       require("conform.util").add_formatter_args(require "conform.formatters.goimports", {
