@@ -27,14 +27,6 @@ set("n", "<leader>Y", [["+Y]])
 set({ "n", "v" }, "<A-d>", [["_d]])
 set({ "n", "v" }, "<A-c>", [["_c]])
 
--- Navigate quickfix list.
-set("n", "<C-j>", "<cmd>cnext<CR>zz")
-set("n", "<C-k>", "<cmd>cprev<CR>zz")
-
--- Navigate location list.
-set("n", "<leader>j", "<cmd>lnext<CR>zz")
-set("n", "<leader>k", "<cmd>lprev<CR>zz")
-
 -- Resize windows
 set("n", "<M-h>", "<c-w>5<")
 set("n", "<M-l>", "<c-w>5>")
@@ -75,6 +67,7 @@ function _G.toggle_light_dark()
   -- Re-run ColorScheme autocmds so your highlight overrides apply
   vim.cmd "doautocmd ColorScheme"
 end
+
 set("n", "<leader>tb", toggle_light_dark, { desc = "Toggle light/dark background" })
 
 set("n", "-", ":Explore<CR>", { silent = true, noremap = true })
