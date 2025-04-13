@@ -114,5 +114,3 @@ zmodload zsh/zpty
 
 if [ -f "$HOME/.local/share/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/.local/share/google-cloud-sdk/path.zsh.inc"; fi
 if [ -f "$HOME/.local/share/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/.local/share/google-cloud-sdk/completion.zsh.inc"; fi
-
-source '/home/j/.local/share/pop/shell_init/zsh/init.zsh' # added by pop
