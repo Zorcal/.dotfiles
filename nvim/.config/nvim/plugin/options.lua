@@ -6,11 +6,6 @@ if vim.fn.has "termguicolors" == 1 then
   opt.termguicolors = true
 end
 
-opt.syntax = "off"
-for _, group in pairs(vim.fn.getcompletion("@", "highlight")) do
-  vim.api.nvim_set_hl(0, group, {})
-end
-
 opt.inccommand = "split"
 
 -- "menu,menuone" ensures that a completion menu appears even if there’s only one match.
