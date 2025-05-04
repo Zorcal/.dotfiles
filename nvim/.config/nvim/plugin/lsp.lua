@@ -26,6 +26,7 @@ for _, server_name in ipairs {
   "taplo",
   "graphql",
   "protols",
+  "rust",
 } do
   vim.lsp.enable(server_name)
 end

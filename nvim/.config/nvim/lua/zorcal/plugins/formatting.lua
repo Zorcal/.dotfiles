@@ -32,6 +32,7 @@ return {
             "gofumpt",
           },
           toml = { "taplo" },
+          rust = { "rustfmt" },
         },
       }
       require("conform.util").add_formatter_args(require "conform.formatters.goimports", {
