@@ -15,6 +15,9 @@
     interactive = auto
     ui = true
     pager = true
+    word-diff = color
+    algorithm = histogram
+    wordRegex = [A-Za-z0-9_]+|[^A-Za-z0-9_]
 [interactive]
     diffFilter = delta --color-only
 [delta]
