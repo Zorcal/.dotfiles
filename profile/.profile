@@ -17,5 +17,6 @@ export PATH="$PATH:$XDG_DATA_HOME/google-cloud-sdk/bin"
 source "$HOME/.cargo/env"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH="$PATH:$HOME/.asdf/shims"
 
 export GOPATH="$XDG_DATA_HOME/go"
