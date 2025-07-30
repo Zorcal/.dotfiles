@@ -1,0 +1,66 @@
+[init]
+	defaultBranch = main
+[user]
+	email = zorcal.dev@gmail.com
+	name = zorcal
+[core]
+    editor = nvim
+    excludesFile = ~/.config/git/ignore
+[init]
+    defaultBranch = main
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+    ui = true
+    pager = true
+    word-diff = color
+    algorithm = histogram
+    wordRegex = [A-Za-z0-9_]+|[^A-Za-z0-9_]
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    side-by-side = true
+    line-numbers = true
+[merge]
+    conflictstyle = diff3
+[rebase]
+    autoStash = true
+    autosquash = true
+[diff]
+    colorMoved = default
+    algorithm = histogram
+[push]
+	autoSetupRemote = true
+[pull]
+    rebase = true
+[branch]
+    autoSetupMerge = simple
+[alias]
+    # List all aliases and trim the "alias." prefix.
+    alias = !git config --list | grep -E '^alias' | awk -F'.' '{print $2}'
+    # Print last commit.
+    last = log -1 HEAD --stat
+    # Delete all branches except for a select few common ones and the current branch.
+    nuke = !"bash -c \"git for-each-ref --format '%(refname:short)' refs/heads/ | grep -v master | grep -v main | grep -v stable | grep -v staging | grep -v trunk | grep -v develop | grep -v $(git rev-parse --abbrev-ref HEAD 2>/dev/null) | xargs git branch -D 2>/dev/null\""
+    # Undo all changes and remove all untracked files and dirs.
+    fuckit = !"bash -c 'git reset HEAD --hard ; git clean -f'"
+    # Amend staged changes to previous commit.
+    amend = commit --amend --no-edit --no-verify
+    # We always want colors for moved pieces.
+    diff = diff --color-moved=plain
+    # Always add in patch mode.
+    addp = "!f() { \
+    git add $@ -p; \
+    }; f"
+[url "ssh://git@gitlab.com"]
+    insteadOf = https://gitlab.com
+[url "ssh://git@github.com"]
+    insteadOf = https://github.com
+[rerere]
+    enabled = false
+[remote]
+	pushDefault = origin
