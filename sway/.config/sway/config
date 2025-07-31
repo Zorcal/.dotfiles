@@ -6,7 +6,7 @@
 
 ### Variables
 #
-# Logo key. 
+# Logo key.
 set $mod Mod4
 # Alt key.
 set $mod2 Mod1
@@ -36,16 +36,10 @@ exec swayidle -w \
           before-sleep 'swaylock -f -c 000000'
 
 ### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
+input type:keyboard {
+    xkb_layout us,se
+}
+
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
@@ -61,6 +55,9 @@ exec swayidle -w \
 
     # Start your launcher
     bindsym $mod+d exec $menu
+
+    # Next keyboard language
+    bindsym $mod+Ctrl+p input type:keyboard xkb_switch_layout next
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -237,8 +234,10 @@ bindsym $mod+r mode "resize"
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-    # Special key to take a screenshot with grim
-    bindsym Print exec grim
+    # Fullscreen screenshot to file (with swappy)
+    bindsym Print exec grim - | swappy -f -
+    # Area screenshot to file (with swappy)
+    bindsym Shift+Print exec grim -g "$(slurp)" - | swappy -f -
 
 ### Application rules:
 for_window [app_id="foot"] border none
