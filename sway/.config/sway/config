@@ -239,6 +239,9 @@ bindsym $mod+r mode "resize"
     # Area screenshot to file (with swappy)
     bindsym Shift+Print exec grim -g "$(slurp)" - | swappy -f -
 
+### Tiling
+exec_always --no-startup-id /home/j/.local/bin/autotiling
+
 ### Application rules:
 for_window [app_id="foot"] border none
 
