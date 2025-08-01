@@ -56,6 +56,9 @@
     addp = "!f() { \
     git add $@ -p; \
     }; f"
+[url "git@github-formulate:"] # See "Host github-formulate" in ~/.ssh/config
+    insteadOf = git@github.com:formulatehq/
+    insteadOf = https://github.com/formulatehq/
 [url "ssh://git@gitlab.com"]
     insteadOf = https://gitlab.com
 [url "ssh://git@github.com"]
