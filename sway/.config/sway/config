@@ -240,6 +240,9 @@ exec_always --no-startup-id /home/j/.local/bin/autotiling
 
 ### Application rules:
 for_window [app_id="foot"] border none
+for_window [app_id="org.mozilla.firefox"] border none
+for_window [app_id="google-chrome"] border none
+for_window [class="Slack" instance="slack"] border none
 
 ### Startup applications:
 exec foot --server
