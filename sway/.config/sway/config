@@ -36,6 +36,13 @@ input type:keyboard {
     xkb_layout us,se
 }
 
+input "type:keyboard" {
+    # Milliseconds before repeat starts
+    repeat_delay 200
+    # Characters per second
+    repeat_rate 60
+}
+
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
