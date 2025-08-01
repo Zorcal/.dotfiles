@@ -15,10 +15,14 @@
         "sway/window"
     ],
     "modules-right": [
+        "privacy",
         "pulseaudio",
+        "memory",
+        "cpu",
         "network",
         "sway/language",
         "battery",
+        "backlight",
         "clock",
         "tray"
     ],
