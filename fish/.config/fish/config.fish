@@ -1,14 +1,5 @@
-# Start keychain with all ed25519 SSH keys
-set ssh_keys (find ~/.ssh -maxdepth 1 -type f -name 'id_ed25519*' \
-    ! -name '*.pub' \
-    ! -name '*_old*' \
-    ! -name '*.bak*')
-if test (count $ssh_keys) -gt 0
-    keychain --quiet $ssh_keys
-    # Source keychain variables, but keep them local to the session
-    if test -f ~/.keychain/fedora-fish
-        string replace -r ' -U' '' <  ~/.keychain/(hostname)-fish | source
-    end
+if not set -q TMUX
+    source ~/.config/fish/start_ssh_agent.fish
 end
 
 set -gx VOLTA_HOME "$HOME/.volta"

@@ -1,8 +1,8 @@
+[user]
+    email = zorcal.dev@gmail.com
+    name = zorcal
 [init]
 	defaultBranch = main
-[user]
-	email = zorcal.dev@gmail.com
-	name = zorcal
 [core]
     editor = nvim
     excludesFile = ~/.config/git/ignore
@@ -56,14 +56,13 @@
     addp = "!f() { \
     git add $@ -p; \
     }; f"
-[url "git@github-formulate:"] # See "Host github-formulate" in ~/.ssh/config
-    insteadOf = git@github.com:formulatehq/
-    insteadOf = https://github.com/formulatehq/
-[url "ssh://git@gitlab.com"]
-    insteadOf = https://gitlab.com
-[url "ssh://git@github.com"]
-    insteadOf = https://github.com
 [rerere]
     enabled = false
 [remote]
 	pushDefault = origin
+[url "git@gitlab.com:"]
+    insteadOf = https://gitlab.com/
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+[includeIf "gitdir:~/Work/"]
+  path = ~/Work/.gitconfig
