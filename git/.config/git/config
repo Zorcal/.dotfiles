@@ -64,5 +64,8 @@
     insteadOf = https://gitlab.com/
 [url "git@github.com:"]
     insteadOf = https://github.com/
+[url "git@github-work:formulatehq/"]
+    insteadOf = https://github.com/formulatehq/
+    insteadOf = git@github.com:formulatehq/
 [includeIf "gitdir:~/Work/"]
   path = ~/Work/.gitconfig

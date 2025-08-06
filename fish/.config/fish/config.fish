@@ -13,4 +13,6 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-
+if test -f ~/.local/share/google-cloud-sdk/path.fish.inc
+    . ~/.local/share/google-cloud-sdk/path.fish.inc
+end
