@@ -4,6 +4,7 @@ SETUVAR --export EDITOR:nvim
 SETUVAR --export --path GOPATH:/home/j/\x2elocal/share/go
 SETUVAR --export GOPRIVATE:github\x2ecom/formulatehq
 SETUVAR __fish_initialized:3800
+SETUVAR fish_autosuggestion_enabled:1
 SETUVAR fish_color_autosuggestion:93a1a1
 SETUVAR fish_color_cancel:\x2d\x2dreverse
 SETUVAR fish_color_command:586e75
