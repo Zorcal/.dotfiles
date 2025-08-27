@@ -68,9 +68,10 @@ return {
           },
         },
       },
-    },
-    sources = {
-      default = { "lsp", "path", "buffer" },
+      trigger = {
+        -- To make unnecessary API requests towards providers.
+        prefetch_on_insert = false,
+      },
     },
   },
   opts_extend = { "sources.default" },
