@@ -39,9 +39,12 @@ autocmd({ "BufRead", "BufNewFile" }, {
 autocmd("LspAttach", {
   group = zorcal_group,
   callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client ~= nil and client:supports_method "textDocument/completion" then
-      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+    vim.o.omnifunc = ""
+    if vim.o.omnifunc ~= "" then
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client ~= nil and client:supports_method "textDocument/completion" then
+        vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+      end
     end
 
     local opts = { buffer = args.buf, remap = false }
