@@ -26,6 +26,9 @@ return {
         indent = {
           enable = true,
         },
+        playground = {
+          enable = true,
+        },
       }
     end,
   },
