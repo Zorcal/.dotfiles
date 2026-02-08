@@ -37,7 +37,18 @@ return {
     vim.keymap.set("n", "<leader>/", "<cmd>lua require('fzf-lua').grep()<CR>")
     vim.keymap.set("n", "<leader>gs", "<cmd>lua require('fzf-lua').live_grep()<CR>")
     vim.keymap.set("n", "<leader>ls", "<cmd>lua require('fzf-lua').lsp_document_symbols({previewer=false})<CR>")
-    vim.keymap.set("n", "<leader>ld", "<cmd>lua require('fzf-lua').lsp_document_diagnostics({previewer=false})<CR>")
-    vim.keymap.set("n", "<leader>lD", "<cmd>lua require('fzf-lua').lsp_workspace_diagnostics({previewer=false})<CR>")
+    vim.keymap.set("n", "<leader>ld", function()
+      require("fzf-lua").lsp_document_diagnostics {
+        previewer = false,
+        severity_sort = "desc",
+      }
+    end)
+
+    vim.keymap.set("n", "<leader>lD", function()
+      require("fzf-lua").lsp_workspace_diagnostics {
+        previewer = false,
+        severity_sort = "desc",
+      }
+    end)
   end,
 }
