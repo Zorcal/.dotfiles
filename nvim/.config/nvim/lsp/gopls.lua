@@ -13,19 +13,6 @@ end
 return {
   cmd = { "gopls", "--remote=auto" },
   filetypes = { "go", "gomod", "gowork", "gotmpl" },
-  settings = {
-    gopls = {
-      hints = {
-        -- parameterNames = true,
-        -- assignVariableTypes = true,
-        -- compositeLiteralFields = true,
-        -- compositeLiteralTypes = true,
-        -- constantValues = true,
-        -- functionTypeParameters = true,
-        -- rangeVariableTypes = true,
-      },
-    },
-  },
   root_dir = function(bufnr, on_dir)
     local fname = vim.api.nvim_buf_get_name(bufnr)
     -- see: https://github.com/neovim/nvim-lspconfig/issues/804

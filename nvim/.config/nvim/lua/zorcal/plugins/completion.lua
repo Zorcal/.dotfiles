@@ -4,6 +4,7 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
       "onsails/lspkind.nvim",
+      "L3MON4D3/LuaSnip",
     },
     version = "1.*",
     opts = {
@@ -27,18 +28,6 @@ return {
       },
       signature = {
         enabled = false, -- Using ray-x/lsp_signature.nvim instead
-
-        -- Show signature help automatically while typing
-        trigger = {
-          show_on_insert = true,
-          show_on_insert_on_trigger_character = true, -- (, ,
-        },
-
-        -- Make it feel more like "ghost text"
-        window = {
-          border = "none",
-          winblend = 10,
-        },
       },
       completion = {
         list = {
@@ -47,6 +36,7 @@ return {
             auto_insert = false,
           },
         },
+        ghost_text = { enabled = true },
         menu = {
           draw = {
             components = {
@@ -89,8 +79,18 @@ return {
           prefetch_on_insert = false,
         },
       },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
+      snippets = { preset = "luasnip" },
     },
     opts_extend = { "sources.default" },
+  },
+  {
+    "L3MON4D3/LuaSnip",
+    version = "1.*",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    opts = {},
   },
   {
     "ray-x/lsp_signature.nvim",
