@@ -12,6 +12,8 @@ opt.inccommand = "split"
 -- "noselect" means the first item isn’t automatically selected, so we don’t accidentally confirm the wrong completion.
 opt.completeopt = "menu,menuone,noselect"
 
+opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 opt.mouse = ""
 
 opt.tabstop = 4
