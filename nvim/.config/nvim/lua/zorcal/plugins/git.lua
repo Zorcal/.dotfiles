@@ -15,19 +15,16 @@ return {
     end,
   },
   {
-    "akinsho/git-conflict.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      require("git-conflict").setup {
-        default_mappings = false,
-        default_commands = true,
-        disable_diagnostics = false,
-        list_opener = "copen", -- command or function to open the conflicts list
-        highlights = { -- They must have background color, otherwise the default color will be used
-          incoming = "DiffAdd",
-          current = "DiffText",
-        },
-      }
-    end,
+    "NeogitOrg/neogit",
+    lazy = true,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "ibhagwan/fzf-lua",
+    },
+    cmd = "Neogit",
+    keys = {
+      { "<leader>gg", "<cmd>Neogit kind=auto<cr>", desc = "Show Neogit UI" },
+    },
   },
 }
