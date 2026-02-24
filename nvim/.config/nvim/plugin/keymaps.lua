@@ -70,7 +70,8 @@ end
 
 set("n", "<leader>tb", toggle_light_dark, { desc = "Toggle light/dark background" })
 
-set("n", "-", ":Explore<CR>", { silent = true, noremap = true })
+--When not using oil.nvim:
+-- set("n", "-", ":Explore<CR>", { silent = true, noremap = true })
 
 if vim.g.neovide then
   local change_scale_factor = function(delta)
