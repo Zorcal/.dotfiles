@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+  echo "Not inside a git repository."
+  exit 1
+fi
+
+if [ $# -lt 1 ]; then
+  echo "Usage: addgitworktree <branch> [path]"
+  exit 1
+fi
+
+branch="$1"
+dir="${2:-../$branch}"
+
+# Check if a worktree already exists for this branch
+existing=$(
+  git worktree list --porcelain | awk -v b="refs/heads/$branch" '
+    /^worktree / { wt=$2 }
+    /^branch / && $2 == b { print wt }
+  '
+)
+
+if [ -n "$existing" ]; then
+  echo "Worktree already exists at: $existing"
+  exit 0
+fi
+
+# Local branch exists
+if git show-ref --verify --quiet "refs/heads/$branch"; then
+  echo "Attaching to existing local branch '$branch'"
+  git worktree add "$dir" "$branch"
+  exit 0
+fi
+
+# Remote branch exists (origin)
+if git show-ref --verify --quiet "refs/remotes/origin/$branch"; then
+  echo "Creating tracking branch from origin/$branch"
+  git worktree add --track -b "$branch" "$dir" "origin/$branch"
+  exit 0
+fi
+
+# Otherwise create new branch
+echo "Creating new branch '$branch'"
+git worktree add -b "$branch" "$dir"
