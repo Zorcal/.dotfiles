@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Branches to keep
+KEEP=("master" "main")
+
+git worktree list --porcelain | awk -v keep_list="${KEEP[*]}" '
+BEGIN {
+  split(keep_list, keep, " ")
+  for (i in keep) whitelist[keep[i]] = 1
+}
+
+/^worktree / { wt=$2 }
+
+/^branch / {
+  br=$2
+  sub("refs/heads/","",br)
+
+  if (wt !~ /\.git$/ && !(br in whitelist)) {
+    print wt
+  }
+}
+' | xargs -r -I{} git worktree remove "{}"
