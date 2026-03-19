@@ -1,22 +1,95 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Branches to keep
 KEEP=("master" "main")
 
-git worktree list --porcelain | awk -v keep_list="${KEEP[*]}" '
-BEGIN {
-  split(keep_list, keep, " ")
-  for (i in keep) whitelist[keep[i]] = 1
+TARGET_MODE=false
+
+if [[ "${1:-}" == "--target" ]]; then
+  TARGET_MODE=true
+fi
+
+# Get current working directory (resolved path)
+current_dir="$(pwd -P)"
+
+# Build worktree list: "path|branch"
+mapfile -t worktrees < <(
+  git worktree list --porcelain | awk '
+    /^worktree / { wt=$2 }
+    /^branch / {
+      br=$2
+      sub("refs/heads/","",br)
+      print wt "|" br
+    }
+  '
+)
+
+# Function: check if branch is in KEEP
+is_kept() {
+  local b="$1"
+  for k in "${KEEP[@]}"; do
+    [[ "$b" == "$k" ]] && return 0
+  done
+  return 1
 }
 
-/^worktree / { wt=$2 }
+# Filter candidates
+candidates=()
+for entry in "${worktrees[@]}"; do
+  wt="${entry%%|*}"
+  br="${entry##*|}"
 
-/^branch / {
-  br=$2
-  sub("refs/heads/","",br)
+  # Skip current directory
+  if [[ "$wt" == "$current_dir" ]]; then
+    continue
+  fi
 
-  if (wt !~ /\.git$/ && !(br in whitelist)) {
-    print wt
-  }
-}
-' | xargs -r -I{} git worktree remove --force "{}"
+  # Skip whitelist
+  if is_kept "$br"; then
+    continue
+  fi
+
+  candidates+=("$wt|$br")
+done
+
+if [[ ${#candidates[@]} -eq 0 ]]; then
+  echo "No worktrees to clean."
+  exit 0
+fi
+
+# TARGET MODE (fzf selection)
+if $TARGET_MODE; then
+  if ! command -v fzf >/dev/null 2>&1; then
+    echo "fzf is required for --target mode."
+    exit 1
+  fi
+
+  selected=$(
+    printf "%s\n" "${candidates[@]}" |
+    sed 's/|/  →  /' |
+    fzf --prompt="Select worktree to clean: "
+  )
+
+  [[ -z "$selected" ]] && exit 0
+
+  # Convert back to original format
+  selected="${selected/  →  /|}"
+  candidates=("$selected")
+fi
+
+# Cleanup
+for entry in "${candidates[@]}"; do
+  wt="${entry%%|*}"
+  br="${entry##*|}"
+
+  echo "Removing worktree: $wt (branch: $br)"
+  git worktree remove --force "$wt"
+
+  if git show-ref --verify --quiet "refs/heads/$br"; then
+    echo "Deleting branch: $br"
+    git branch -D "$br"
+  fi
+done
+
+echo "Cleanup complete."
