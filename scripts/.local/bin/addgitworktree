@@ -12,7 +12,12 @@ if [ $# -lt 1 ]; then
 fi
 
 branch="$1"
-dir="${2:-../$branch}"
+
+# Sanitize branch name for directory usage
+sanitzed_branch="${branch//\//-}"
+
+# Default directory (can still be overridden by user)
+dir="${2:-../$sanitzed_branch}"
 
 # Check if a worktree already exists for this branch
 existing=$(
