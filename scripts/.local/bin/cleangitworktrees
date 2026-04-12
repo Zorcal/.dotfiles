@@ -83,6 +83,15 @@ for entry in "${candidates[@]}"; do
   wt="${entry%%|*}"
   br="${entry##*|}"
 
+  # Kill tmux session if it exists
+  tmux_session_name=$(basename "$wt" | tr . _)
+  if command -v tmux >/dev/null 2>&1; then
+    if tmux has-session -t="$tmux_session_name" 2>/dev/null; then
+      echo "Killing tmux session: $tmux_session_name"
+      tmux kill-session -t "$tmux_session_name"
+    fi
+  fi
+
   echo "Removing worktree: $wt (branch: $br)"
   git worktree remove --force "$wt"
 
