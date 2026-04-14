@@ -6,7 +6,6 @@ vim.lsp.config("*", {
       },
     },
   },
-  root_markers = { ".git" },
 })
 
 -- See https://github.com/neovim/nvim-lspconfig/tree/master/lsp for example configs.
