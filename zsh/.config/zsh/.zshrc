@@ -9,3 +9,5 @@ source "$ZDOTDIR/alias.zsh"
 source "$ZDOTDIR/functions.zsh"
 
 source "$ZDOTDIR/work.zsh"
+
+source '/Users/johan.ronkko/.local/share/pop/shell_init/zsh/init.zsh' # added by pop
