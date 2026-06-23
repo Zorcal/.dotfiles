@@ -1,21 +1,36 @@
-(source_file) @source
-(expression) @expr
-(function_call) @call
-(argument_list) @args
-(binary_expression) @binary
-(unary_expression) @unary
-(parenthesized_expression) @parens
-(column_reference) @column_ref
-(literal) @literal
+; === Functions ===
+(function_call name: (identifier) @function.call)
+
+; === Column references ===
+(column_reference table: (identifier) @module)
+(column_reference "." @punctuation.delimiter)
+(column_reference "`" @punctuation.special)
+(column_reference column: (column_name) @property)
+
+; === Lambda ===
+(lambda_expression "->" @operator)
+(lambda_expression params: (identifier) @variable.parameter)
+(parameter_list (identifier) @variable.parameter)
+
+; === Literals ===
 (number) @number
 (string) @string
-(boolean) @bool
-(null) @null
-(identifier) @id
-(column_name) @colname
-(lambda_expression) @lambda
-(lambda_body) @lambda_body
-(lambda_binary_expression) @lambda_binary
-(lambda_unary_expression) @lambda_unary
-(lambda_parenthesized_expression) @lambda_parens
-(parameter_list) @param_list
+(boolean) @boolean
+(null) @constant.builtin
+
+; === Word operators ===
+["OR" "AND" "NOT" "IN" "GLOBAL" "LIKE" "ILIKE" "IS"] @keyword.operator
+
+; === Symbol operators ===
+["=" "==" "!=" "<>" "<" ">" "<=" ">="] @operator
+["+" "-" "*" "/" "%"] @operator
+
+; === Punctuation ===
+["(" ")"] @punctuation.bracket
+[","] @punctuation.delimiter
+
+; === Fallback: unmatched identifiers ===
+(identifier) @variable
+
+; === Syntax errors ===
+(ERROR) @error
