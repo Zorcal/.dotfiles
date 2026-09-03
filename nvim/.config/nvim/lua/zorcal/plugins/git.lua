@@ -132,7 +132,7 @@ return {
     },
     cmd = "Neogit",
     keys = {
-      { "<leader>gg", "<cmd>Neogit kind=auto<cr>", desc = "Show Neogit UI" },
+      { "<leader>gg", "<cmd>Neogit kind=floating<cr>", desc = "Show Neogit UI" },
     },
   },
 }
