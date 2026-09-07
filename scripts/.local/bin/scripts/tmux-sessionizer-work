@@ -1,10 +1,12 @@
 #!/bin/bash
 
-selected=$(find ~/Work/ingest -mindepth 1 -maxdepth 1 -type d | fzf)
+selected=$(find ~/Work/pyramind -mindepth 1 -maxdepth 1 -type d | fzf)
 
 if [[ -z $selected ]]; then
     exit 0
 fi
+
+echo "HERE" $selected"
 
 selected_name=$(basename "$selected" | tr . _)
 tmux_running=$(pgrep tmux)

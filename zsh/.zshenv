@@ -32,11 +32,11 @@ path=(
     "/usr/local/go/bin"
     "/opt/homebrew/share/google-cloud-sdk/bin"
     "$HOME/.local/bin"
+    "$HOME/.local/bin/scripts"
     "$XDG_DATA_HOME/go/bin"
     "$XDG_DATA_HOME/bazelisk/bin"
     "$XDG_DATA_HOME/cargo/bin"
     "$XDG_DATA_HOME/npm/bin"
-    "$XDG_DATA_HOME/scripts"
     "$VOLTA_HOME/bin"
     $path
 )
