@@ -1,6 +1,14 @@
 #!/bin/bash
 
-selected=$(find ~/Work ~/Projects ~/.dotfiles/nvim/.config ~/.dotfiles/tmux/.config -mindepth 1 -maxdepth 1 -type d | fzf)
+selected=$(
+    {
+        find ~/Projects -mindepth 1 -maxdepth 1 -type d \
+            -exec test -e '{}/.git' ';' -print
+
+        find ~/.dotfiles/nvim/.config ~/.dotfiles/tmux/.config \
+            -mindepth 1 -maxdepth 1 -type d
+    } | fzf
+)
 
 if [[ -z $selected ]]; then
     exit 0
