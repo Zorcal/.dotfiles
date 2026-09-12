@@ -41,6 +41,7 @@ path=(
     "$XDG_DATA_HOME/npm/bin"
     "$VOLTA_HOME/bin"
     "$BUN_INSTALL/bin"
+    "/opt/homebrew/share/google-cloud-sdk/bin"
     $path
 )
 
