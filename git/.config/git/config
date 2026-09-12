@@ -59,4 +59,7 @@
     addp = "!f() { \
     git add $@ -p; \
     }; f"
+	rdiff = "!f() { if [ \"$#\" -eq 1 ]; then git diff origin/main...\"$1\"; elif [ \"$#\" -eq 2 ]; then git diff \"$1\"...\"$2\"; else echo \"usage: git rdiff <branch> | <base> <branch>\" >&2; return 2; fi; }; f"
 
+[pager]
+	diff = diffnav
