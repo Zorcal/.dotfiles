@@ -10,7 +10,13 @@ if [[ -z $selected ]]; then
     exit 0
 fi
 
-selected_name=$(basename "$selected" | tr . _)
+parent=$(basename "$(dirname "$selected")")
+selected_name=$(basename "$selected")
+if [[ $parent != Work ]]; then
+    selected_name="${parent}_${selected_name}"
+fi
+selected_name=${selected_name//./_}
+
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
